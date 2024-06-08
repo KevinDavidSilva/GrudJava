@@ -11,6 +11,7 @@ package com.mycompany.crudjava;
 public class CrudJava {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        FormInicio frmInicio= new FormInicio();
+       frmInicio.setVisible(true);
     }
 }
