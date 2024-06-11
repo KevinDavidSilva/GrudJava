@@ -4,12 +4,14 @@
  */
 package com.mycompany.crudjava;
 
+import utilerias.OpcionesCrud;
+
 /**
  *
  * @author elmer
  */
 public class FormPrestamo extends javax.swing.JFrame {
-
+private OpcionesCrud opcionCrud;
     /**
      * Creates new form FormPrestamo
      */
@@ -126,6 +128,7 @@ public class FormPrestamo extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
@@ -140,21 +143,24 @@ public class FormPrestamo extends javax.swing.JFrame {
 
     private void jBtnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCrearActionPerformed
         // TODO add your handling code here:
-        FormPrestamoEsc frmprestamo = new FormPrestamoEsc();
+        this.opcionCrud =OpcionesCrud.CREAR;
+        FormPrestamoEsc frmprestamo = new FormPrestamoEsc(opcionCrud);
         frmprestamo.setTitle("Crear Prestamo");
         frmprestamo.setVisible(true);
     }//GEN-LAST:event_jBtnCrearActionPerformed
 
     private void jBtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnModificarActionPerformed
         // TODO add your handling code here:
-        FormPrestamoEsc frmprestamo = new FormPrestamoEsc();
+        this.opcionCrud =OpcionesCrud.MODIFICAR;
+        FormPrestamoEsc frmprestamo = new FormPrestamoEsc(opcionCrud);
         frmprestamo.setTitle("Modifcar Prestamo");
         frmprestamo.setVisible(true);
     }//GEN-LAST:event_jBtnModificarActionPerformed
 
     private void jBtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarActionPerformed
         // TODO add your handling code here:
-        FormPrestamoEsc frmprestamo = new FormPrestamoEsc();
+        this.opcionCrud =OpcionesCrud.ELIMINAR;
+        FormPrestamoEsc frmprestamo = new FormPrestamoEsc(opcionCrud);
         frmprestamo.setTitle("Eliminar Prestamo");
         frmprestamo.setVisible(true);
     }//GEN-LAST:event_jBtnEliminarActionPerformed

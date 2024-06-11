@@ -4,12 +4,14 @@
  */
 package com.mycompany.crudjava;
 
+import utilerias.OpcionesCrud;
+
 /**
  *
  * @author elmer
  */
 public class FormLibro extends javax.swing.JFrame {
-
+    private OpcionesCrud opcionCrud;
     /**
      * Creates new form FormLibro
      */
@@ -121,6 +123,7 @@ public class FormLibro extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
@@ -130,21 +133,24 @@ public class FormLibro extends javax.swing.JFrame {
 
     private void jBtnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCrearActionPerformed
         // TODO add your handling code here:
-        FormLibroEsc frmlibro = new FormLibroEsc();
+        this.opcionCrud =OpcionesCrud.CREAR;
+        FormLibroEsc frmlibro = new FormLibroEsc(opcionCrud);
          frmlibro.setTitle("Crear Libro");
         frmlibro.setVisible(true);
     }//GEN-LAST:event_jBtnCrearActionPerformed
 
     private void jBtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnModificarActionPerformed
         // TODO add your handling code here:
-        FormLibroEsc frmlibro = new FormLibroEsc();
+        this.opcionCrud =OpcionesCrud.MODIFICAR;
+        FormLibroEsc frmlibro = new FormLibroEsc(opcionCrud);
         frmlibro.setTitle("Modificar Libro");
         frmlibro.setVisible(true);
     }//GEN-LAST:event_jBtnModificarActionPerformed
 
     private void jBtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarActionPerformed
         // TODO add your handling code here:
-        FormLibroEsc frmlibro = new FormLibroEsc();
+        this.opcionCrud =OpcionesCrud.ELIMINAR;
+        FormLibroEsc frmlibro = new FormLibroEsc(opcionCrud);
         frmlibro.setTitle("Eliminar Libro");
         frmlibro.setVisible(true);
     }//GEN-LAST:event_jBtnEliminarActionPerformed
