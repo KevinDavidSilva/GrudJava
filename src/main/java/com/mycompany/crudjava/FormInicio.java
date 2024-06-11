@@ -35,6 +35,7 @@ public class FormInicio extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Inicio");
 
         jMenu1.setText("Libros");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
