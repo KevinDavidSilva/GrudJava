@@ -26,30 +26,49 @@ public class FormPrestamo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jBtnBuscar = new javax.swing.JButton();
+        jBtnCrear = new javax.swing.JButton();
+        jBtnModificar = new javax.swing.JButton();
+        jBtnEliminar = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Prestamo");
 
-        jButton1.setText("Buscar");
+        jBtnBuscar.setText("Buscar");
 
-        jButton2.setText("Crear");
+        jBtnCrear.setText("Crear");
+        jBtnCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnCrearActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Editar");
+        jBtnModificar.setText("Editar");
+        jBtnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnModificarActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Eliminar");
+        jBtnEliminar.setText("Eliminar");
+        jBtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnEliminarActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Cancelar");
         jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton5MouseClicked(evt);
+            }
+        });
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
             }
         });
 
@@ -74,18 +93,18 @@ public class FormPrestamo extends javax.swing.JFrame {
                 .addContainerGap(35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3)
+                        .addComponent(jBtnModificar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4)
+                        .addComponent(jBtnEliminar)
                         .addGap(18, 18, 18)
                         .addComponent(jButton5))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(46, 46, 46)
-                        .addComponent(jButton1)
+                        .addComponent(jBtnBuscar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)))
+                        .addComponent(jBtnCrear)))
                 .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
@@ -94,14 +113,14 @@ public class FormPrestamo extends javax.swing.JFrame {
                 .addContainerGap(31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jBtnBuscar)
+                    .addComponent(jBtnCrear))
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
+                    .addComponent(jBtnModificar)
+                    .addComponent(jBtnEliminar)
                     .addComponent(jButton5))
                 .addGap(20, 20, 20))
         );
@@ -113,6 +132,32 @@ public class FormPrestamo extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_jButton5MouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+         this.setVisible(false);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jBtnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCrearActionPerformed
+        // TODO add your handling code here:
+        FormPrestamoEsc frmprestamo = new FormPrestamoEsc();
+        frmprestamo.setTitle("Crear Prestamo");
+        frmprestamo.setVisible(true);
+    }//GEN-LAST:event_jBtnCrearActionPerformed
+
+    private void jBtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnModificarActionPerformed
+        // TODO add your handling code here:
+        FormPrestamoEsc frmprestamo = new FormPrestamoEsc();
+        frmprestamo.setTitle("Modifcar Prestamo");
+        frmprestamo.setVisible(true);
+    }//GEN-LAST:event_jBtnModificarActionPerformed
+
+    private void jBtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarActionPerformed
+        // TODO add your handling code here:
+        FormPrestamoEsc frmprestamo = new FormPrestamoEsc();
+        frmprestamo.setTitle("Eliminar Prestamo");
+        frmprestamo.setVisible(true);
+    }//GEN-LAST:event_jBtnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,10 +195,10 @@ public class FormPrestamo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jBtnBuscar;
+    private javax.swing.JButton jBtnCrear;
+    private javax.swing.JButton jBtnEliminar;
+    private javax.swing.JButton jBtnModificar;
     private javax.swing.JButton jButton5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
