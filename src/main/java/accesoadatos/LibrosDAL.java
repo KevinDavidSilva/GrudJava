@@ -16,11 +16,13 @@ import java.util.ArrayList;
  * @author elmer
  */
 public class LibrosDAL {
-      public static ArrayList<Libros> obtenerTodos() {
+
+    public static ArrayList<Libros> buscar(Libros libro) {
         ArrayList<Libros> libros = new ArrayList<>();
         try (Connection conn = ComunDB.obtenerConexion()) {
-            String sql = "SELECT LibroID, Titulo, Autor, Genero, Publicacion, Disponible FROM Libros";
+            String sql = "SELECT LibroID, Titulo, Autor, Genero, Publicacion, Disponible FROM Libros WHERE Titulo LIKE ?";
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
+                statement.setString(1, "%" + libro.getTitulo() + "%");
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {
                         int libroID = resultSet.getInt("LibroID");
@@ -29,12 +31,12 @@ public class LibrosDAL {
                         String genero = resultSet.getString("Genero");
                         java.sql.Date publicacion = resultSet.getDate("Publicacion");
                         boolean disponible = resultSet.getBoolean("Disponible");
-                        Libros libro = new Libros(libroID, titulo, autor, genero, new java.util.Date(publicacion.getTime()), disponible);
-                        libros.add(libro);
+                        Libros libroEncontrado = new Libros(libroID, titulo, autor, genero, new java.util.Date(publicacion.getTime()), disponible);
+                        libros.add(libroEncontrado);
                     }
                 }
             } catch (SQLException e) {
-                throw new RuntimeException("Error al obtener los libros", e);
+                throw new RuntimeException("Error al buscar los libros", e);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error al obtener la conexión a la base de datos", e);
@@ -60,7 +62,7 @@ public class LibrosDAL {
         }
     }
 
-    public static void actualizar(Libros libro) {
+    public static int actualizar(Libros libro) {
         try (Connection conn = ComunDB.obtenerConexion()) {
             String sql = "UPDATE Libros SET Titulo = ?, Autor = ?, Genero = ?, Publicacion = ?, Disponible = ? WHERE LibroID = ?";
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
@@ -70,26 +72,30 @@ public class LibrosDAL {
                 statement.setDate(4, new java.sql.Date(libro.getPublicacion().getTime()));
                 statement.setBoolean(5, libro.isDisponible());
                 statement.setInt(6, libro.getLibroID());
-                statement.executeUpdate();
+               int rowsAffected = statement.executeUpdate();
+                return rowsAffected;
             } catch (SQLException e) {
-                throw new RuntimeException("Error al actualizar el libro", e);
+                throw new RuntimeException("Error al crear el producto", e);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al obtener la conexión a la base de datos", e);
+        }
+        
+    }
+
+    public static int eliminar(Libros libro) {
+        try (Connection conn = ComunDB.obtenerConexion()) {
+            String sql = "DELETE FROM Libros WHERE LibroID = ?";
+            try (PreparedStatement statement = conn.prepareStatement(sql)) {
+                statement.setInt(1, libro.getLibroID());
+                int rowsAffected = statement.executeUpdate();
+                return rowsAffected;
+            } catch (SQLException e) {
+                throw new RuntimeException("Error al crear el producto", e);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error al obtener la conexión a la base de datos", e);
         }
     }
 
-    public static void eliminar(int libroID) {
-        try (Connection conn = ComunDB.obtenerConexion()) {
-            String sql = "DELETE FROM Libros WHERE LibroID = ?";
-            try (PreparedStatement statement = conn.prepareStatement(sql)) {
-                statement.setInt(1, libroID);
-                statement.executeUpdate();
-            } catch (SQLException e) {
-                throw new RuntimeException("Error al eliminar el libro", e);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Error al obtener la conexión a la base de datos", e);
-        }
-    }
 }

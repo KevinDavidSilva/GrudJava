@@ -4,30 +4,33 @@
  */
 package com.mycompany.crudjava;
 
-import accesoadatos.LibrosDAL;
+
+import accesoadatos.PrestamoDAL;
 import entidades.Libros;
+import entidades.Prestamo;
+import java.sql.Date;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import utilerias.OpcionesCrud;
-
 
 /**
  *
  * @author elmer
  */
 public class FormPrestamoEsc extends javax.swing.JFrame {
+
     private OpcionesCrud opcionCrud;
-    
+
     /**
      * Creates new form FormPrestamoEsc
      */
     public FormPrestamoEsc(OpcionesCrud opcion) {
         this.opcionCrud = opcion;
         initComponents();
-        ArrayList<Libros> libros = LibrosDAL.obtenerTodos();
-        DefaultComboBoxModel<String> modelCombox = new DefaultComboBoxModel(libros.toArray());
-        jCbLibros.setModel(modelCombox);
+       // ArrayList<Libros> libros = PrestamoDAL.buscar(prestamoSearch);
+        //DefaultComboBoxModel<Libros> modelCombox = new DefaultComboBoxModel(libros.toArray());
+       // jCbLibros.setModel(modelCombox);
     }
 
     /**
@@ -40,7 +43,7 @@ public class FormPrestamoEsc extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        TxtNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -49,6 +52,8 @@ public class FormPrestamoEsc extends javax.swing.JFrame {
         jCbLibros = new javax.swing.JComboBox<>();
         jBtnGuardar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
 
         jLabel1.setText("Nombre");
 
@@ -59,8 +64,6 @@ public class FormPrestamoEsc extends javax.swing.JFrame {
         jLabel4.setText("Fecha de devolucion");
 
         jLabel5.setText("Categoria");
-
-        jCbLibros.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jBtnGuardar.setText("Guardar");
         jBtnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -85,20 +88,22 @@ public class FormPrestamoEsc extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addGap(101, 101, 101)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-                                    .addComponent(jTextField1)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(101, 101, 101)
-                                .addComponent(jCbLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jCbLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
+                                .addGap(36, 36, 36)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                                    .addComponent(TxtNombre)
+                                    .addComponent(jTextField3)
+                                    .addComponent(jTextField4)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addComponent(jBtnGuardar)
@@ -111,21 +116,25 @@ public class FormPrestamoEsc extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jCbLibros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnGuardar)
                     .addComponent(jButton2))
@@ -138,23 +147,85 @@ public class FormPrestamoEsc extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-         this.setVisible(false);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private Prestamo ObtenerDatos() {
+       Prestamo prestamo = new Prestamo();
+    try {
+        prestamo.setUsuarioNombre(TxtNombre.getText());
+        prestamo.setUsuarioCorreo(jTextField2.getText());
+
+        // Convertir la fecha de préstamo
+        String fechaPrestamoText = jTextField3.getText();
+        if (fechaPrestamoText.isEmpty()) {
+            throw new IllegalArgumentException("La fecha de préstamo es obligatoria");
+        }
+        prestamo.setFechaPrestamo(new java.util.Date(Date.parse(fechaPrestamoText)));
+
+        // Convertir la fecha de devolución
+        String fechaDevolucionText = jTextField4.getText();
+        if (!fechaDevolucionText.isEmpty()) {
+            prestamo.setFechaDevolucion(new java.util.Date(Date.parse(fechaDevolucionText)));
+        } else {
+            prestamo.setFechaDevolucion(null);
+        }
+
+        Libros libros = (Libros) jCbLibros.getSelectedItem();
+        prestamo.setLibroID(libros.getLibroID());
+    } catch (IllegalArgumentException e) {
+        JOptionPane.showMessageDialog(this, "Error en las fechas: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error obteniendo datos: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+    }
+    return prestamo;
+    }
+
+    private void AsignarDatos(Prestamo prestamo) {
+        TxtNombre.setText(prestamo.getUsuarioNombre());
+        jTextField2.setText(prestamo.getUsuarioCorreo());
+        jTextField3.setText(prestamo.getFechaPrestamo() != null ? prestamo.getFechaPrestamo().toString() : "");
+        jTextField4.setText(prestamo.getFechaDevolucion() != null ? prestamo.getFechaDevolucion().toString() : "");
+        Libros libros = new Libros();
+        libros.setLibroID(prestamo.getLibroID());
+        jCbLibros.setSelectedItem(prestamo.getLibroID());
+
+    }
+
+    private void CrearRegis() {
+        try {
+        Prestamo prestamo = ObtenerDatos();
+        int resultado = PrestamoDAL.crear(prestamo);
+        if (resultado > 0) {
+            JOptionPane.showMessageDialog(this,
+                    "El préstamo se registró correctamente.", "CREAR PRÉSTAMO",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Ocurrió un error al crear el préstamo", "ERROR PRÉSTAMO",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this,
+                "Excepción: " + ex.getMessage(), "ERROR PRÉSTAMO",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    }
 
     private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGuardarActionPerformed
         if (null != opcionCrud) // TODO add your handling code here:
         {
             switch (opcionCrud) {
                 case CREAR:
-                    JOptionPane.showMessageDialog(this, "Guardar registros", "Crear", JOptionPane.INFORMATION_MESSAGE );
-                    this.setVisible(false);
+                    CrearRegis();
                     break;
                 case MODIFICAR:
-                    JOptionPane.showMessageDialog(this, "Guardar registros", "Modificar", JOptionPane.INFORMATION_MESSAGE );
+                    JOptionPane.showMessageDialog(this, "Guardar registros", "Modificar", JOptionPane.INFORMATION_MESSAGE);
                     this.setVisible(false);
                     break;
                 case ELIMINAR:
-                    JOptionPane.showMessageDialog(this, "Guardar registros", "Eliminar", JOptionPane.INFORMATION_MESSAGE );
+                    JOptionPane.showMessageDialog(this, "Guardar registros", "Eliminar", JOptionPane.INFORMATION_MESSAGE);
                     this.setVisible(false);
                     break;
                 default:
@@ -166,20 +237,20 @@ public class FormPrestamoEsc extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField TxtNombre;
     private javax.swing.JButton jBtnGuardar;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jCbLibros;
+    private javax.swing.JComboBox<Libros> jCbLibros;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 
-   
 }

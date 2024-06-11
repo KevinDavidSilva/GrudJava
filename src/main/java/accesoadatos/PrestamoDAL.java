@@ -15,19 +15,17 @@ import java.util.ArrayList;
  * @author elmer
  */
 public class PrestamoDAL {
-     public static int crear(Prestamo prestamo) {
+    public static int crear(Prestamo prestamo) {
         try (Connection conn = ComunDB.obtenerConexion()) {
             String sql = "INSERT INTO Prestamo (LibroID, UsuarioNombre, UsuarioCorreo, FechaPrestamo, FechaDevolucion) VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
                 statement.setInt(1, prestamo.getLibroID());
                 statement.setString(2, prestamo.getUsuarioNombre());
                 statement.setString(3, prestamo.getUsuarioCorreo());
-                statement.setDate(4, new Date(prestamo.getFechaPrestamo().getTime()));
-                if (prestamo.getFechaDevolucion() != null) {
-                    statement.setDate(5, new Date(prestamo.getFechaDevolucion().getTime()));
-                } else {
-                    statement.setNull(5, java.sql.Types.DATE);
-                }
+                statement.setDate(4, new java.sql.Date(prestamo.getFechaPrestamo().getTime()));
+                statement.setDate(5, new java.sql.Date(prestamo.getFechaDevolucion().getTime()));
+                    
+                
                 int rowsAffected = statement.executeUpdate();
                 return rowsAffected;
             } catch (SQLException e) {

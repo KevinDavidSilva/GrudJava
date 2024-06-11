@@ -4,6 +4,12 @@
  */
 package com.mycompany.crudjava;
 
+import accesoadatos.LibrosDAL;
+import entidades.Libros;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import utilerias.OpcionesCrud;
 
 /**
@@ -11,7 +17,9 @@ import utilerias.OpcionesCrud;
  * @author elmer
  */
 public class FormLibro extends javax.swing.JFrame {
+
     private OpcionesCrud opcionCrud;
+
     /**
      * Creates new form FormLibro
      */
@@ -53,6 +61,11 @@ public class FormLibro extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jBtnBuscar.setText("Buscar");
+        jBtnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnBuscarActionPerformed(evt);
+            }
+        });
 
         jBtnCrear.setText("Crear");
         jBtnCrear.addActionListener(new java.awt.event.ActionListener() {
@@ -133,27 +146,82 @@ public class FormLibro extends javax.swing.JFrame {
 
     private void jBtnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCrearActionPerformed
         // TODO add your handling code here:
-        this.opcionCrud =OpcionesCrud.CREAR;
+        this.opcionCrud = OpcionesCrud.CREAR;
         FormLibroEsc frmlibro = new FormLibroEsc(opcionCrud);
-         frmlibro.setTitle("Crear Libro");
+        frmlibro.setTitle("Crear Libro");
         frmlibro.setVisible(true);
     }//GEN-LAST:event_jBtnCrearActionPerformed
 
+    private Libros obtenerDatos() {
+        Libros libro = new Libros();
+        int row = jTable1.getSelectedRow();
+        if (row != -1) {
+            libro.setLibroID((int) jTable1.getValueAt(row, 0));
+            libro.setTitulo(jTable1.getValueAt(row, 1).toString());
+            libro.setAutor(jTable1.getValueAt(row, 2).toString());
+            libro.setGenero(jTable1.getValueAt(row, 3).toString());
+            libro.setPublicacion((Date) jTable1.getValueAt(row, 4)); // Asegúrate de importar java.sql.Date
+            libro.setDisponible((boolean) jTable1.getValueAt(row, 5));
+        }
+        return libro;
+    }
+
+
     private void jBtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnModificarActionPerformed
-        // TODO add your handling code here:
-        this.opcionCrud =OpcionesCrud.MODIFICAR;
-        FormLibroEsc frmlibro = new FormLibroEsc(opcionCrud);
-        frmlibro.setTitle("Modificar Libro");
-        frmlibro.setVisible(true);
+        int row = jTable1.getSelectedRow();
+        if (row != -1) {
+            opcionCrud = OpcionesCrud.MODIFICAR;
+            FormLibroEsc frmlibro;
+            frmlibro = new FormLibroEsc(opcionCrud, obtenerDatos());
+            frmlibro.setTitle("Modificar Libro");
+            frmlibro.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccionar una fila", "Libro", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jBtnModificarActionPerformed
 
     private void jBtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarActionPerformed
         // TODO add your handling code here:
-        this.opcionCrud =OpcionesCrud.ELIMINAR;
-        FormLibroEsc frmlibro = new FormLibroEsc(opcionCrud);
+        int row = jTable1.getSelectedRow();
+        if (row != -1) {
+        opcionCrud = OpcionesCrud.ELIMINAR;
+        FormLibroEsc frmlibro = new FormLibroEsc(opcionCrud, obtenerDatos());
         frmlibro.setTitle("Eliminar Libro");
         frmlibro.setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Seleccionar una fila", "Libro", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jBtnEliminarActionPerformed
+
+    private void jBtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarActionPerformed
+        // TODO add your handling code here:
+        Libros libro = new Libros();
+        libro.setTitulo(jTextField1.getText());
+
+        ArrayList<Libros> libros = LibrosDAL.buscar(libro);
+
+        // Definir las columnas de la tabla
+        String[] columnas = {"LibroID", "Titulo", "Autor", "Genero", "Publicacion", "Disponible"};
+
+        // Crear una matriz para los datos
+        Object[][] datos = new Object[libros.size()][6];
+
+        // Llenar la matriz con los datos de los libros
+        for (int i = 0; i < libros.size(); i++) {
+            Libros item = libros.get(i);
+            datos[i][0] = item.getLibroID();
+            datos[i][1] = item.getTitulo();
+            datos[i][2] = item.getAutor();
+            datos[i][3] = item.getGenero();
+            datos[i][4] = item.getPublicacion();
+            datos[i][5] = item.isDisponible();
+        }
+
+        // Crear el modelo de la tabla con los datos
+        DefaultTableModel modelTable = new DefaultTableModel(datos, columnas);
+        jTable1.setModel(modelTable);
+    }//GEN-LAST:event_jBtnBuscarActionPerformed
 
     /**
      * @param args the command line arguments

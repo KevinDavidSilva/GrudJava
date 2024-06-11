@@ -4,9 +4,11 @@
  */
 package com.mycompany.crudjava;
 
+import accesoadatos.LibrosDAL;
+import entidades.Libros;
+import java.sql.Date;
 import javax.swing.JOptionPane;
 import utilerias.OpcionesCrud;
-
 
 /**
  *
@@ -24,6 +26,10 @@ public class FormLibroEsc extends javax.swing.JFrame {
         initComponents();
     }
 
+    FormLibroEsc(OpcionesCrud opcionCrud, Libros obtenerDatos) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,15 +40,16 @@ public class FormLibroEsc extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtTitulo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtAutor = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtGenero = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
+        chkDisponible = new javax.swing.JCheckBox();
+        jbtnguardar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        txtPublicacion = new javax.swing.JTextField();
 
         jLabel1.setText("Titulo");
 
@@ -52,12 +59,12 @@ public class FormLibroEsc extends javax.swing.JFrame {
 
         jLabel4.setText("Fecha");
 
-        jCheckBox1.setText("Disponible");
+        chkDisponible.setText("Disponible");
 
-        jButton1.setText("Guardar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbtnguardar.setText("Guardar");
+        jbtnguardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbtnguardarActionPerformed(evt);
             }
         });
 
@@ -77,7 +84,7 @@ public class FormLibroEsc extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox1)
+                            .addComponent(chkDisponible)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel4)
@@ -86,12 +93,13 @@ public class FormLibroEsc extends javax.swing.JFrame {
                                     .addComponent(jLabel1))
                                 .addGap(81, 81, 81)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-                                    .addComponent(jTextField2)
-                                    .addComponent(jTextField3)))))
+                                    .addComponent(txtTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                                    .addComponent(txtAutor)
+                                    .addComponent(txtGenero)
+                                    .addComponent(txtPublicacion)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(62, 62, 62)
-                        .addComponent(jButton1)
+                        .addComponent(jbtnguardar)
                         .addGap(78, 78, 78)
                         .addComponent(jButton2)))
                 .addContainerGap(112, Short.MAX_VALUE))
@@ -102,22 +110,24 @@ public class FormLibroEsc extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addGap(34, 34, 34)
-                .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(jLabel4)
+                    .addComponent(txtPublicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addComponent(chkDisponible)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtnguardar)
                     .addComponent(jButton2))
                 .addGap(17, 17, 17))
         );
@@ -131,20 +141,66 @@ public class FormLibroEsc extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private Libros obtenerDatos(Libros libro) {
+        libro.setTitulo(txtTitulo.getText());
+        libro.setAutor(txtAutor.getText());
+        libro.setGenero(txtGenero.getText());
+        libro.setPublicacion(Date.valueOf(txtPublicacion.getText()));
+        libro.setDisponible(chkDisponible.isSelected());
+        return libro;
+    }
+
+    private void CrearRegis() {
+        try {
+            Libros libro = new Libros();
+            obtenerDatos(libro);
+            LibrosDAL.crear(libro);
+            JOptionPane.showMessageDialog(this, "Libro creado con éxito.");
+            this.dispose(); // Cierra la ventana actual
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al crear el libro.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void ModificarRegis() {
+        try {
+            Libros libro = new Libros();
+            obtenerDatos(libro);
+            LibrosDAL.actualizar(libro);
+            JOptionPane.showMessageDialog(this, "Libro creado con éxito.");
+            this.dispose(); // Cierra la ventana actual
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al crear el libro.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    private void EliminarRegis(){
+        try{
+            Libros libro = new Libros();
+            obtenerDatos(libro);
+            LibrosDAL.eliminar(libro);
+            JOptionPane.showMessageDialog(this, "Libro se borro con éxito.");
+            this.dispose();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al crear el libro.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    private void jbtnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnguardarActionPerformed
         if (null != opcionCrud) // TODO add your handling code here:
         {
             switch (opcionCrud) {
                 case CREAR:
-                    JOptionPane.showMessageDialog(this, "Guardar registros", "Crear", JOptionPane.INFORMATION_MESSAGE );
+                    CrearRegis();
                     this.setVisible(false);
                     break;
                 case MODIFICAR:
-                    JOptionPane.showMessageDialog(this, "Guardar registros", "Modificar", JOptionPane.INFORMATION_MESSAGE );
+                    ModificarRegis();
                     this.setVisible(false);
                     break;
                 case ELIMINAR:
-                    JOptionPane.showMessageDialog(this, "Guardar registros", "Eliminar", JOptionPane.INFORMATION_MESSAGE );
+                    EliminarRegis();
                     this.setVisible(false);
                     break;
                 default:
@@ -153,22 +209,23 @@ public class FormLibroEsc extends javax.swing.JFrame {
         }
 
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jbtnguardarActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JCheckBox chkDisponible;
     private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JButton jbtnguardar;
+    private javax.swing.JTextField txtAutor;
+    private javax.swing.JTextField txtGenero;
+    private javax.swing.JTextField txtPublicacion;
+    private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
 }
