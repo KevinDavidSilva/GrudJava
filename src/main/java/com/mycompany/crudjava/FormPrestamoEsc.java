@@ -28,9 +28,9 @@ public class FormPrestamoEsc extends javax.swing.JFrame {
     public FormPrestamoEsc(OpcionesCrud opcion) {
         this.opcionCrud = opcion;
         initComponents();
-       // ArrayList<Libros> libros = PrestamoDAL.buscar(prestamoSearch);
-        //DefaultComboBoxModel<Libros> modelCombox = new DefaultComboBoxModel(libros.toArray());
-       // jCbLibros.setModel(modelCombox);
+      // ArrayList<Libros> libros = PrestamoDAL.buscar();
+       //DefaultComboBoxModel<Libros> modelCombox = new DefaultComboBoxModel(libros.toArray());
+      // jCbLibros.setModel(modelCombox);
     }
 
     /**

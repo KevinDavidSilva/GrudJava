@@ -72,15 +72,17 @@ public class LibrosDAL {
                 statement.setDate(4, new java.sql.Date(libro.getPublicacion().getTime()));
                 statement.setBoolean(5, libro.isDisponible());
                 statement.setInt(6, libro.getLibroID());
-               int rowsAffected = statement.executeUpdate();
+
+                System.out.println("Ejecutando actualización: " + statement.toString());
+
+                int rowsAffected = statement.executeUpdate();
                 return rowsAffected;
             } catch (SQLException e) {
-                throw new RuntimeException("Error al crear el producto", e);
+                throw new RuntimeException("Error al actualizar el libro", e);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error al obtener la conexión a la base de datos", e);
         }
-        
     }
 
     public static int eliminar(Libros libro) {
@@ -88,10 +90,13 @@ public class LibrosDAL {
             String sql = "DELETE FROM Libros WHERE LibroID = ?";
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
                 statement.setInt(1, libro.getLibroID());
+
+                System.out.println("Ejecutando eliminación: " + statement.toString());
+
                 int rowsAffected = statement.executeUpdate();
                 return rowsAffected;
             } catch (SQLException e) {
-                throw new RuntimeException("Error al crear el producto", e);
+                throw new RuntimeException("Error al eliminar el libro", e);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error al obtener la conexión a la base de datos", e);

@@ -147,12 +147,12 @@ public class FormLibro extends javax.swing.JFrame {
     private void jBtnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCrearActionPerformed
         // TODO add your handling code here:
         this.opcionCrud = OpcionesCrud.CREAR;
-        FormLibroEsc frmlibro = new FormLibroEsc(opcionCrud);
+        FormLibroEsc frmlibro = new FormLibroEsc(opcionCrud, new Libros());
         frmlibro.setTitle("Crear Libro");
         frmlibro.setVisible(true);
     }//GEN-LAST:event_jBtnCrearActionPerformed
 
-    private Libros obtenerDatos() {
+    private Libros ObtenerDatos() {
         Libros libro = new Libros();
         int row = jTable1.getSelectedRow();
         if (row != -1) {
@@ -171,8 +171,8 @@ public class FormLibro extends javax.swing.JFrame {
         int row = jTable1.getSelectedRow();
         if (row != -1) {
             opcionCrud = OpcionesCrud.MODIFICAR;
-            FormLibroEsc frmlibro;
-            frmlibro = new FormLibroEsc(opcionCrud, obtenerDatos());
+             
+            FormLibroEsc  frmlibro = new FormLibroEsc(opcionCrud, ObtenerDatos());
             frmlibro.setTitle("Modificar Libro");
             frmlibro.setVisible(true);
         } else {
@@ -185,7 +185,8 @@ public class FormLibro extends javax.swing.JFrame {
         int row = jTable1.getSelectedRow();
         if (row != -1) {
         opcionCrud = OpcionesCrud.ELIMINAR;
-        FormLibroEsc frmlibro = new FormLibroEsc(opcionCrud, obtenerDatos());
+        FormLibroEsc frmlibro = new FormLibroEsc(opcionCrud, ObtenerDatos());
+        System.out.print(ObtenerDatos());
         frmlibro.setTitle("Eliminar Libro");
         frmlibro.setVisible(true);
         }

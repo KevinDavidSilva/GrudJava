@@ -7,6 +7,9 @@ package com.mycompany.crudjava;
 import accesoadatos.LibrosDAL;
 import entidades.Libros;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import static java.time.Clock.system;
+import static java.time.InstantSource.system;
 import javax.swing.JOptionPane;
 import utilerias.OpcionesCrud;
 
@@ -17,17 +20,19 @@ import utilerias.OpcionesCrud;
 public class FormLibroEsc extends javax.swing.JFrame {
 
     private OpcionesCrud opcionCrud;
+     private Libros  libroActual = new Libros();
 
     /**
      * Creates new form FormLibroEsc
      */
-    public FormLibroEsc(OpcionesCrud opcion) {
+    public FormLibroEsc(OpcionesCrud opcion, Libros libro) {
         this.opcionCrud = opcion;
         initComponents();
-    }
+        if (opcion != OpcionesCrud.CREAR) {
+            AsignarDatos(libro);
+            libroActual = libro;
+        }
 
-    FormLibroEsc(OpcionesCrud opcionCrud, Libros obtenerDatos) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /**
@@ -141,19 +146,32 @@ public class FormLibroEsc extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private Libros obtenerDatos(Libros libro) {
+    private Libros obtenerDatos() {
+        Libros libro = new Libros();
+        libro.setLibroID( libroActual.getLibroID());
         libro.setTitulo(txtTitulo.getText());
         libro.setAutor(txtAutor.getText());
         libro.setGenero(txtGenero.getText());
         libro.setPublicacion(Date.valueOf(txtPublicacion.getText()));
         libro.setDisponible(chkDisponible.isSelected());
+        
         return libro;
+    }
+
+    private void AsignarDatos(Libros libro) {
+        txtTitulo.setText(libro.getTitulo());
+        txtAutor.setText(libro.getAutor());
+        txtGenero.setText(libro.getGenero());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaFormateada = sdf.format(libro.getPublicacion());
+        txtPublicacion.setText(fechaFormateada);
+        chkDisponible.setSelected(libro.isDisponible());
+
     }
 
     private void CrearRegis() {
         try {
-            Libros libro = new Libros();
-            obtenerDatos(libro);
+            Libros libro = obtenerDatos();
             LibrosDAL.crear(libro);
             JOptionPane.showMessageDialog(this, "Libro creado con éxito.");
             this.dispose(); // Cierra la ventana actual
@@ -165,28 +183,33 @@ public class FormLibroEsc extends javax.swing.JFrame {
 
     private void ModificarRegis() {
         try {
-            Libros libro = new Libros();
-            obtenerDatos(libro);
+            Libros libro = obtenerDatos();
             LibrosDAL.actualizar(libro);
             JOptionPane.showMessageDialog(this, "Libro creado con éxito.");
             this.dispose(); // Cierra la ventana actual
         } catch (Exception ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al crear el libro.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al modificar libro.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    private void EliminarRegis(){
-        try{
-            Libros libro = new Libros();
-            obtenerDatos(libro);
+
+    private void EliminarRegis() {
+        try {
+            Libros libro = obtenerDatos();
+
             LibrosDAL.eliminar(libro);
             JOptionPane.showMessageDialog(this, "Libro se borro con éxito.");
             this.dispose();
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al crear el libro.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al eliminar libro.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    private void asingarDatos(Libros libro) {
+
+    }
+
     private void jbtnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnguardarActionPerformed
         if (null != opcionCrud) // TODO add your handling code here:
         {
